@@ -75,7 +75,7 @@ dependencies:
   - webencodings=0.5.1=py_1
   - werkzeug=0.14.1=py_0
   - wheel=0.32.3=py36_0
-  - wincertstore=0.2=py36_1002
+  #- wincertstore=0.2=py36_1002
   - winpty=0.4.3=4
   - wrapt=1.10.11=py36hfa6e2cd_1001
   - zeromq=4.2.5=vc14_2
