@@ -161,6 +161,242 @@ df = pd.DataFrame({'Age': [30, 20, 22, 40, 32, 28, 39],
 
 print(df.dtypes)
 
-#%% 
+#%% astype
+df = pd.DataFrame({'Age': [30, 20, 22, 40, 32, 28, 39],
+                   'Color': ['Blue', 'Green', 'Red', 'White', 'Gray', 'Black',
+                             'Red'],
+                   'Food': ['Steak', 'Lamb', 'Mango', 'Apple', 'Cheese',
+                            'Melon', 'Beans'],
+                   'Height': [165, 70, 120, 80, 180, 172, 150],
+                   'Score': [4.6, 8.3, 9.0, 3.3, 1.8, 9.5, 2.2],
+                   'State': ['NY', 'TX', 'FL', 'AL', 'AK', 'TX', 'TX']
+                   },
+                  index=['Jane', 'Nick', 'Aaron', 'Penelope', 'Dean',
+                         'Christina', 'Cornelia'])
+ 
+print(df.dtypes)
+df['Age'] = df['Age'].astype('str')
+print(df.dtypes)
+
+#%% to int 
+
+import pandas as pd
+ 
+df = pd.DataFrame({'DailyExp': [75.7, 56.69, 55.69, 96.5, 84.9, 110.5,
+                                58.9],
+                   'State': ['NY', 'TX', 'FL', 'AL', 'AK', 'TX', 'TX']
+                   },
+                  index=['Jane', 'Nick', 'Aaron', 'Penelope', 'Dean',
+                         'Christina', 'Cornelia'])
+
+print(df.dtypes)
+df['DailyExp'] = df['DailyExp'].astype('int')
+print(df.dtypes)
+
+#%% datetime64
+df = pd.DataFrame({'DateOfBirth': ['1986-11-11', '1999-05-12', '1976-01-01',
+                                   '1986-06-01', '1983-06-04', '1990-03-07',
+                                   '1999-07-09'],                   
+                   'State': ['NY', 'TX', 'FL', 'AL', 'AK', 'TX', 'TX']
+                   },
+                  index=['Jane', 'Nick', 'Aaron', 'Penelope', 'Dean',
+                         'Christina', 'Cornelia'])
+
+print(df.dtypes)
+df['DateOfBirth'] = df['DateOfBirth'].astype('datetime64')
+print(df.dtypes)
+
+#%% append df 
+
+df1 = pd.DataFrame({'Age': [30, 20, 22, 40], 'Height': [165, 70, 120, 80],
+                    'Score': [4.6, 8.3, 9.0, 3.3], 'State': ['NY', 'TX',
+                                                             'FL', 'AL']},
+                   index=['Jane', 'Nick', 'Aaron', 'Penelope'])
+ 
+df2 = pd.DataFrame({'Age': [32, 28, 39], 'Color': ['Gray', 'Black', 'Red'],
+                    'Food': ['Cheese', 'Melon', 'Beans'],
+                    'Score': [1.8, 9.5, 2.2], 'State': ['AK', 'TX', 'TX']},
+                   index=['Dean', 'Christina', 'Cornelia'])
+ 
+
+df3 = df1.append(df2, sort=True)
+df3
+
+
+#%%
+
+cols = ['Zip']
+lst = []
+zip = 1000 
+
+for a in range(10): 
+    lst.append(zip)
+    zip += 1
+
+lst
+#%%
+import pandas as pd
+ 
+df = pd.DataFrame(columns=['Name', 'Age'])
+ 
+df.loc[1, 'Name'] = 'Rocky'
+df.loc[1, 'Age'] = 21
+ 
+df.loc[2, 'Name'] = 'Sunny'
+df.loc[2, 'Age'] = 22
+ 
+df.loc[3, 'Name'] = 'Mark'
+df.loc[3, 'Age'] = 25
+ 
+df.loc[4, 'Name'] = 'Taylor'
+df.loc[4, 'Age'] = 28
+
+line = pd.DataFrame({'Name':'FUCK', 'Age':1000}, index=[2.5])
+df = df.append(line)
+df.sort_index().reset_index(drop=True)
+#%%
+import pandas as pd
+ 
+df = pd.DataFrame([[10, 20, 30, 40], [7, 14, 21, 28], [5, 5, 0, 0]],
+                  columns=['Apple', 'Orange', 'Banana', 'Pear'],
+                  index=['Basket1', 'Basket2', 'Basket3'])
+df['mean basket'] = df.mean(axis=1)
+df.loc['mean fruits'] = df.mean(axis=0)
+df
+#%% Use of any()
+
+import pandas as pd
+ 
+df = pd.DataFrame({'DateOfBirth': ['1986-11-11', '1999-05-12', '1976-01-01',
+                                   '1986-06-01', '1983-06-04', '1990-03-07',
+                                   '1999-07-09'],
+                   'State': ['NY', 'TX', 'FL', 'AL', 'AK', 'TX', 'TX']
+                   },
+                  index=['Jane', 'Pane', 'Aaron', 'Penelope', 'Frane',
+                         'Christina', 'Cornelia'])
+ 
+if df['State'].str.contains('TX').any():
+    print("TX is there")
+
+
+#%% remove duplicated 
+
+import pandas as pd
+import numpy as np
+ 
+df = pd.DataFrame({'Age': [30, 30, 22, 40, 20, 30, 20, 25],
+                   'Height': [165, 165, 120, 80, 162, 72, 124, 81],
+                   'Score': [4.6, 4.6, 9.0, 3.3, 4, 8, 9, 3],
+                   'State': ['NY', 'NY', 'FL', 'AL', 'NY', 'TX', 'FL', 'AL']},
+                  index=['Jane', 'Jane', 'Aaron', 'Penelope', 'Jaane', 'Nicky',
+                         'Armour', 'Ponting'])
+ 
+print("\n -------- Duplicate Rows ----------- \n")
+print(df)
+df.reset_index().drop_duplicates(subset=['index'], keep='first')
+df.loc[df['Age']>20, 'Height'].values
+#%%
+import pandas as pd
+ 
+df = pd.DataFrame({'DateOfBirth': ['1986-11-11', '1999-05-12', '1976-01-01',
+                                   '1986-06-01', '1983-06-04', '1990-03-07',
+                                   '1999-07-09'],
+                   'State': ['NY', 'TX', 'FL', 'AL', 'AK', 'TX', 'TX']
+                   },
+                  index=['Jane', 'Pane', 'Aaron', 'Penelope', 'Frane',
+                         'Christina', 'Cornelia'])
+df.sort_index(ascending=True) 
+
+#%%
+
+import pandas as pd
+ 
+df = pd.DataFrame([[10, 20, 30, 40], [7, 14, 21, 28], [5, 5, 0, 0]],
+                  columns=['Apple', 'Orange', 'Banana', 'Pear'],
+                  index=['Basket1', 'Basket2', 'Basket3'])
+ 
+print("\n--------- DataFrame Values--------\n")
+print(df)
+ 
+print("\n--------- DataFrame Values by Rank--------\n")
+print(df.rank(ascending=False))
+
+#%%
+import pandas as pd
+ 
+values = ["India", "Canada", "Australia",
+          "Japan", "Germany", "France"]
+ 
+pidx = pd.period_range('6/1/2006', '11/1/2006', freq='M')
+ 
+df = pd.DataFrame(values, index=pidx, columns=['Country'])
+ 
+print(df)
+
+#%%
+import pandas as pd
+ 
+df = pd.DataFrame([[10, 20, 30, 40], [7, 14, 21, 28], [55, 15, 8, 12],
+                   [15, 14, 1, 8], [7, 1, 1, 8], [5, 4, 9, 2]],
+                  columns=['Apple', 'Orange', 'Banana', 'Pear'],
+                  index=['Basket1', 'Basket2', 'Basket3', 'Basket4',
+                         'Basket5', 'Basket6'])
+ 
+print("\n----------- Calculate Mean -----------\n")
+print(df.mean())
+ 
+print("\n----------- Calculate Median -----------\n")
+print(df.median())
+ 
+print("\n----------- Calculate Mode -----------\n")
+print(df.mode())
+
+#%%
+import pandas as pd
+ 
+df = pd.DataFrame([[10, 20, 30, 40], [7, 14, 21, 28], [55, 15, 8, 12],
+                   [15, 14, 1, 8], [7, 1, 1, 8], [5, 4, 9, 2]],
+                  columns=['Apple', 'Orange', 'Banana', 'Pear'],
+                  index=['Basket1', 'Basket2', 'Basket3', 'Basket4',
+                         'Basket5', 'Basket6'])
+ 
+print("\n----------- Calculate Mean -----------\n")
+print(df.mean())
+ 
+print("\n----------- Calculate variance -----------\n")
+print(df.cov())
+ 
+
+#%%
+import pandas as pd
+ 
+df = pd.DataFrame([[10, 20, 30, 40], [7, 14, 21, 28], [55, 15, 8, 12],
+                   [15, 14, 1, 8], [7, 1, 1, 8], [5, 4, 9, 2]],
+                  columns=['Apple', 'Orange', 'Banana', 'Pear'],
+                  index=['Basket1', 'Basket2', 'Basket3', 'Basket4',
+                         'Basket5', 'Basket6'])
+ 
+print("\n------ Percent change at each cell of a Column -----\n")
+print(df[['Apple']].pct_change()[:3])
+ 
+print("\n------ Percent change at each cell of a DataFrame -----\n")
+print(df.pct_change()[:5])
+
+#%%
+
+import pandas as pd
+ 
+df = pd.DataFrame([[10, 30, 40], [], [15, 8, 12],
+                   [15, 14, 1, 8], [7, 8], [5, 4, 1]],
+                  columns=['Apple', 'Orange', 'Banana', 'Pear'],
+                  index=['Basket1', 'Basket2', 'Basket3', 'Basket4',
+                         'Basket5', 'Basket6'])
+ 
+print("\n------ DataFrame-----\n")
+print(df)
+ 
+print("\n------ Unstacking DataFrame -----\n")
+print(df.stack(level=-1))
+print(df.unstack(level=-1))
 
 #%%
